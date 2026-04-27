@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kate Lawal — Data Science & Analytics Professional</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0f1117;
+      --paper: #faf8f3;
+      --cream: #f0ead8;
+      --gold: #c8922a;
+      --gold-light: #e8b84b;
+      --rust: #b54a2a;
+      --sage: #4a6741;
+      --teal: #2a6b7c;
+      --muted: #6b6456;
+      --border: #d8cdb8;
+      --card: #ffffff;
+      --shadow: rgba(15,17,23,0.08);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ─── NOISE TEXTURE OVERLAY ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 3rem;
+      background: rgba(250,248,243,0.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      transition: all 0.3s ease;
+    }
+
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.3rem;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--gold); }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0; right: 0;
+      height: 1px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transition: transform 0.2s ease;
+    }
+
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 6rem 6rem 4rem;
+      gap: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #hero::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,146,42,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-text { position: relative; }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.78rem;
+      color: var(--gold);
+      background: rgba(200,146,42,0.1);
+      border: 1px solid rgba(200,146,42,0.25);
+      padding: 0.35rem 0.85rem;
+      border-radius: 100px;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.04em;
+    }
+
+    .hero-tag::before { content: '◆'; font-size: 0.6rem; }
+
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(3rem, 5vw, 4.8rem);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 480px;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1.8rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      cursor: pointer;
+      border: none;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .btn-primary {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .btn-primary:hover {
+      background: var(--gold);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(200,146,42,0.3);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--ink);
+      border: 1.5px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--ink);
+      transform: translateY(-2px);
+    }
+
+    /* ─── PHOTO FRAME ─── */
+    .hero-photo {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .photo-frame {
+      position: relative;
+      width: 380px;
+      height: 460px;
+    }
+
+    .photo-bg-shape {
+      position: absolute;
+      inset: 0;
+      background: var(--cream);
+      border-radius: 60% 40% 55% 45% / 50% 55% 45% 50%;
+      animation: morph 8s ease-in-out infinite;
+    }
+
+    @keyframes morph {
+      0%, 100% { border-radius: 60% 40% 55% 45% / 50% 55% 45% 50%; }
+      33% { border-radius: 40% 60% 45% 55% / 55% 45% 50% 50%; }
+      66% { border-radius: 55% 45% 60% 40% / 45% 55% 50% 50%; }
+    }
+
+    .photo-img {
+      position: absolute;
+      inset: 20px;
+      border-radius: 55% 45% 50% 50% / 45% 50% 50% 55%;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--cream) 0%, var(--border) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: morph 8s ease-in-out infinite 0.5s;
+    }
+
+    .photo-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .photo-placeholder {
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .photo-placeholder .icon {
+      font-size: 5rem;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .photo-placeholder p {
+      font-size: 0.8rem;
+      font-family: 'Fira Code', monospace;
+    }
+
+    .photo-badge {
+      position: absolute;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.7rem 1rem;
+      box-shadow: 0 4px 20px var(--shadow);
+      font-size: 0.8rem;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .badge-1 {
+      top: 10px;
+      right: -20px;
+      color: var(--sage);
+    }
+
+    .badge-2 {
+      bottom: 30px;
+      left: -30px;
+      color: var(--teal);
+    }
+
+    .badge-3 {
+      bottom: 120px;
+      right: -25px;
+      color: var(--rust);
+    }
+
+    /* ─── STATS BAR ─── */
+    .stats-bar {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 2rem 6rem;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+
+    .stat {
+      text-align: center;
+      border-right: 1px solid rgba(250,248,243,0.1);
+    }
+
+    .stat:last-child { border-right: none; }
+
+    .stat-number {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.2rem;
+      color: var(--gold-light);
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: rgba(250,248,243,0.6);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 0.3rem;
+    }
+
+    /* ─── SECTIONS ─── */
+    section {
+      padding: 5rem 6rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .section-number {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      color: var(--gold);
+    }
+
+    h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.4rem;
+      letter-spacing: -0.02em;
+    }
+
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ─── ABOUT ─── */
+    #about {
+      background: var(--cream);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+    }
+
+    .about-text strong { color: var(--ink); font-weight: 600; }
+
+    .skills-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .skill-pill {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 0.4rem 0.9rem;
+      border-radius: 100px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--ink);
+      transition: all 0.2s ease;
+      cursor: default;
+    }
+
+    .skill-pill:hover {
+      background: var(--ink);
+      color: var(--paper);
+      border-color: var(--ink);
+      transform: translateY(-2px);
+    }
+
+    .skill-pill.gold { border-color: var(--gold); color: var(--gold); }
+    .skill-pill.gold:hover { background: var(--gold); color: white; }
+
+    /* ─── EXPERIENCE ─── */
+    .timeline {
+      position: relative;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 140px;
+      top: 0; bottom: 0;
+      width: 1px;
+      background: var(--border);
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 2.5rem;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 134px;
+      top: 8px;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: var(--paper);
+      border: 2px solid var(--gold);
+    }
+
+    .timeline-date {
+      text-align: right;
+      padding-right: 2rem;
+      padding-top: 0.1rem;
+    }
+
+    .date-range {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .timeline-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.8rem 2rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .timeline-card:hover {
+      border-color: var(--gold);
+      box-shadow: 0 8px 32px var(--shadow);
+      transform: translateX(4px);
+    }
+
+    .job-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.2rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .job-company {
+      font-size: 0.9rem;
+      color: var(--gold);
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .job-location {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .job-bullets {
+      list-style: none;
+      display: none;
+    }
+
+    .timeline-card.expanded .job-bullets { display: block; }
+
+    .job-bullets li {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.7;
+      padding: 0.4rem 0;
+      border-bottom: 1px solid var(--cream);
+      padding-left: 1.2rem;
+      position: relative;
+    }
+
+    .job-bullets li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+    }
+
+    .job-bullets li:last-child { border-bottom: none; }
+
+    .expand-hint {
+      font-size: 0.75rem;
+      color: var(--gold);
+      font-family: 'Fira Code', monospace;
+      margin-top: 0.5rem;
+    }
+
+    .timeline-card.expanded .expand-hint::before { content: '▲ collapse'; }
+    .timeline-card:not(.expanded) .expand-hint::before { content: '▼ expand details'; }
+
+    /* ─── PROJECTS ─── */
+    #projects { background: var(--cream); }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.8rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    .project-card:hover {
+      border-color: var(--gold);
+      box-shadow: 0 12px 40px var(--shadow);
+      transform: translateY(-4px);
+    }
+
+    .project-card:hover::before { transform: scaleX(1); }
+
+    .project-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
+
+    .project-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .project-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 1rem;
+    }
+
+    .project-impact {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.78rem;
+      color: var(--gold);
+      background: rgba(200,146,42,0.08);
+      padding: 0.4rem 0.7rem;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .tag {
+      font-size: 0.72rem;
+      color: var(--muted);
+      background: var(--cream);
+      border: 1px solid var(--border);
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+    }
+
+    /* ─── EDUCATION ─── */
+    .edu-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .edu-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      transition: all 0.3s ease;
+    }
+
+    .edu-card:hover {
+      border-color: var(--gold);
+      box-shadow: 0 8px 24px var(--shadow);
+    }
+
+    .edu-school {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.15rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .edu-degree {
+      font-size: 0.88rem;
+      color: var(--gold);
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .edu-date {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .edu-honors {
+      font-size: 0.82rem;
+      color: var(--sage);
+      font-weight: 600;
+    }
+
+    /* ─── AWARDS ─── */
+    #awards { background: var(--cream); }
+
+    .awards-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .award-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.2rem 1.5rem;
+      transition: all 0.2s ease;
+    }
+
+    .award-item:hover {
+      border-color: var(--gold);
+      transform: translateX(4px);
+    }
+
+    .award-icon { font-size: 1.5rem; flex-shrink: 0; }
+
+    .award-text strong {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .award-text span {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* ─── CONTACT ─── */
+    #contact {
+      background: var(--ink);
+      color: var(--paper);
+      text-align: center;
+      padding: 5rem 6rem;
+    }
+
+    #contact h2 { color: var(--paper); margin-bottom: 1rem; }
+
+    #contact p {
+      color: rgba(250,248,243,0.7);
+      font-size: 1rem;
+      max-width: 500px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.7;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.85rem 1.8rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      background: rgba(250,248,243,0.08);
+      color: var(--paper);
+      border: 1px solid rgba(250,248,243,0.15);
+    }
+
+    .contact-link:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+      transform: translateY(-2px);
+    }
+
+    /* ─── FLOATING ELEMENTS ─── */
+    .floating-bar {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      z-index: 50;
+    }
+
+    .dot-nav {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--border);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .dot-nav.active {
+      background: var(--gold);
+      transform: scale(1.5);
+    }
+
+    .dot-nav:hover::after {
+      content: attr(data-label);
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--ink);
+      color: var(--paper);
+      font-size: 0.7rem;
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    /* ─── SCROLL REVEAL ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── CURSOR ─── */
+    .custom-cursor {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      border: 1.5px solid var(--gold);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10000;
+      transition: all 0.1s ease;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: multiply;
+    }
+
+    .custom-cursor.hovering {
+      width: 40px;
+      height: 40px;
+      background: rgba(200,146,42,0.1);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      #hero { grid-template-columns: 1fr; padding: 5rem 1.5rem 3rem; text-align: center; }
+      .hero-sub { max-width: 100%; }
+      .hero-cta { justify-content: center; }
+      .hero-photo { display: none; }
+      .stats-bar { grid-template-columns: repeat(2, 1fr); padding: 2rem 1.5rem; }
+      section { padding: 3rem 1.5rem; }
+      .about-grid { grid-template-columns: 1fr; }
+      .timeline::before { left: 0; }
+      .timeline-item { grid-template-columns: 1fr; }
+      .timeline-item::before { display: none; }
+      .timeline-date { text-align: left; padding: 0; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .edu-grid { grid-template-columns: 1fr; }
+      .awards-list { grid-template-columns: 1fr; }
+      .floating-bar { display: none; }
+      #contact { padding: 3rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="custom-cursor" id="cursor"></div>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#hero">Kate <span>Lawal</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- FLOATING DOT NAV -->
+  <div class="floating-bar">
+    <div class="dot-nav active" data-section="hero" data-label="Home" onclick="scrollTo('hero')"></div>
+    <div class="dot-nav" data-section="about" data-label="About" onclick="scrollTo('about')"></div>
+    <div class="dot-nav" data-section="experience" data-label="Experience" onclick="scrollTo('experience')"></div>
+    <div class="dot-nav" data-section="projects" data-label="Projects" onclick="scrollTo('projects')"></div>
+    <div class="dot-nav" data-section="education" data-label="Education" onclick="scrollTo('education')"></div>
+    <div class="dot-nav" data-section="awards" data-label="Awards" onclick="scrollTo('awards')"></div>
+    <div class="dot-nav" data-section="contact" data-label="Contact" onclick="scrollTo('contact')"></div>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-text reveal">
+      <div class="hero-tag">Data Science &amp; Automation Professional</div>
+      <h1>Turning data into <em>decisions</em> that move markets</h1>
+      <p class="hero-sub">
+        10+ years delivering AI-driven solutions across Africa and the Middle East.
+        MBA candidate at William & Mary. Retained over $5M in client value.
+      </p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary">↓ View Projects</a>
+        <a href="#contact" class="btn btn-outline">Get in Touch</a>
+        <a href="https://github.com/Katredandred" target="_blank" class="btn btn-outline">⌥ GitHub</a>
+      </div>
+    </div>
+
+    <div class="hero-photo reveal">
+      <div class="photo-frame">
+        <div class="photo-bg-shape"></div>
+        <div class="photo-img" id="photoContainer">
+          <!-- REPLACE with: <img src="your-photo.jpg" alt="Kate Lawal" /> -->
+          <div class="photo-placeholder">
+            <span class="icon">👩🏾‍💻</span>
+            <p>// add photo here</p>
+          </div>
+        </div>
+        <div class="photo-badge badge-1">📊 $5M+ value retained</div>
+        <div class="photo-badge badge-2">🌍 Africa &amp; Middle East</div>
+        <div class="photo-badge badge-3">🎓 HBS · W&amp;M MBA</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stat">
+      <span class="stat-number" data-target="10">0</span>
+      <div class="stat-label">Years of Experience</div>
+    </div>
+    <div class="stat">
+      <span class="stat-number" data-target="5" data-prefix="$" data-suffix="M+">0</span>
+      <div class="stat-label">Client Value Retained</div>
+    </div>
+    <div class="stat">
+      <span class="stat-number" data-target="39">0</span>
+      <div class="stat-label">Clients Served (NielsenIQ)</div>
+    </div>
+    <div class="stat">
+      <span class="stat-number" data-target="13">0</span>
+      <div class="stat-label">Bravo Awards Won</div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-header reveal">
+      <span class="section-number">01</span>
+      <h2>About Me</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>
+          I'm a <strong>Data Science and Automation professional</strong> with deep expertise in machine learning, 
+          geospatial analysis, and Python-based agentic tools. My career spans the FMCG, energy, 
+          and technology sectors across Sub-Saharan Africa and the Middle East.
+        </p>
+        <p>
+          At <strong>NielsenIQ</strong>, I led retail intelligence for 39 clients, built Python automation 
+          that cut turnaround times by 90%, and developed geospatial models that saved a 
+          $600K Coca-Cola subscription. At <strong>Inicio Insights</strong>, I pioneered AI-powered 
+          store sizing with nothing more than an Android phone camera.
+        </p>
+        <p>
+          Currently completing my <strong>MBA at William & Mary</strong> with concentrations in Business 
+          Analytics, Finance, and Consulting — bringing the rigor of data science together 
+          with strategic business leadership.
+        </p>
+      </div>
+      <div class="reveal">
+        <div class="skills-cloud">
+          <span class="skill-pill gold">Python</span>
+          <span class="skill-pill gold">Machine Learning</span>
+          <span class="skill-pill gold">Geospatial Analysis</span>
+          <span class="skill-pill">SQL</span>
+          <span class="skill-pill">Pandas / NumPy</span>
+          <span class="skill-pill">scikit-learn</span>
+          <span class="skill-pill">OCR / Computer Vision</span>
+          <span class="skill-pill">Google Places API</span>
+          <span class="skill-pill">Tableau</span>
+          <span class="skill-pill">Spotfire</span>
+          <span class="skill-pill">A/B Testing</span>
+          <span class="skill-pill">ETL Pipelines</span>
+          <span class="skill-pill">MATLAB</span>
+          <span class="skill-pill">Data Storytelling</span>
+          <span class="skill-pill">FMCG Analytics</span>
+          <span class="skill-pill">Retail Intelligence</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-header reveal">
+      <span class="section-number">02</span>
+      <h2>Experience</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="timeline">
+
+      <div class="timeline-item reveal">
+        <div class="timeline-date">
+          <div class="date-range">Oct 2025<br>Present</div>
+        </div>
+        <div class="timeline-card" onclick="toggleCard(this)">
+          <div class="job-title">Success Coach, Academic Wellbeing</div>
+          <div class="job-company">College of William and Mary</div>
+          <div class="job-location">📍 Williamsburg, VA</div>
+          <ul class="job-bullets">
+            <li>Provide individualized academic coaching to help undergraduate and graduate students strengthen time management, study strategies, and motivation.</li>
+            <li>Collaborate with faculty, advisors, and campus partners to identify and support students facing academic or personal challenges.</li>
+            <li>Facilitate workshops promoting holistic wellbeing, resilience, and effective learning habits across diverse student populations.</li>
+          </ul>
+          <div class="expand-hint"></div>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-date">
+          <div class="date-range">Sep 2024<br>Jul 2025</div>
+        </div>
+        <div class="timeline-card" onclick="toggleCard(this)">
+          <div class="job-title">Senior Director, Market Analytics</div>
+          <div class="job-company">Inicio Insights Limited — Africa & Middle East</div>
+          <div class="job-location">📍 Africa / Remote</div>
+          <ul class="job-bullets">
+            <li>Directed end-to-end data analysis and interpretation, delivering 28 high-impact presentations to Marketing Directors in the FMCG industry in four months.</li>
+            <li>Built and nurtured executive-level client relationships, providing 13 customized analytics solutions for long-term distribution optimization.</li>
+            <li>Pioneered AI-powered store sizing and OCR using basic Android phone picture-capture, revolutionizing field data collection.</li>
+            <li>Influenced $20K EBITDA growth through retail measurement product portfolio and revenue growth policies.</li>
+          </ul>
+          <div class="expand-hint"></div>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-date">
+          <div class="date-range">Oct 2023<br>Aug 2024</div>
+        </div>
+        <div class="timeline-card" onclick="toggleCard(this)">
+          <div class="job-title">Retail Intelligence Manager</div>
+          <div class="job-company">NielsenIQ — Sub-Saharan Africa</div>
+          <div class="job-location">📍 Sub-Saharan Africa</div>
+          <ul class="job-bullets">
+            <li>Led collection, analysis, and interpretation of retail and market data, delivering actionable insights for 39 clients across Sub-Saharan Africa.</li>
+            <li>Maintained 8 strong client relationships as a trusted advisor for retail data intelligence needs.</li>
+            <li>Partnered with analytics and product development leads to deliver innovative retail intelligence solutions and compelling data narratives.</li>
+          </ul>
+          <div class="expand-hint"></div>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-date">
+          <div class="date-range">Sep 2020<br>Sep 2023</div>
+        </div>
+        <div class="timeline-card" onclick="toggleCard(this)">
+          <div class="job-title">Senior Data Science Executive</div>
+          <div class="job-company">NielsenIQ — Sub-Saharan Africa</div>
+          <div class="job-location">📍 Sub-Saharan Africa</div>
+          <ul class="job-bullets">
+            <li>Applied Python geospatial analysis to improve beverage sample selection, retaining a $600K Coca-Cola retail audit subscription.</li>
+            <li>Led E2E market refresh activities — from Python data simulations to first-time-right SQL database updates — for a $4M client base.</li>
+            <li>Developed a Python Pandas program reducing regional customization turnaround by 90% (5 days → 1 day), winning back $300K in client subscriptions.</li>
+          </ul>
+          <div class="expand-hint"></div>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-date">
+          <div class="date-range">Mar 2018<br>Aug 2020</div>
+        </div>
+        <div class="timeline-card" onclick="toggleCard(this)">
+          <div class="job-title">Data Science Executive</div>
+          <div class="job-company">NielsenIQ — Sub-Saharan Africa</div>
+          <div class="job-location">📍 Sub-Saharan Africa</div>
+          <ul class="job-bullets">
+            <li>Built a polynomial regression model via Python scikit-learn to create historical sales trends for Coca-Cola and Diageo — a $1.5M project.</li>
+            <li>Leveraged Google Places API to web-scrape all bakery/pastry shops in Lagos for a $300K Trade Dimensions project, winning the bid in 2019.</li>
+          </ul>
+          <div class="expand-hint"></div>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-date">
+          <div class="date-range">Jun 2014<br>Jul 2015</div>
+        </div>
+        <div class="timeline-card" onclick="toggleCard(this)">
+          <div class="job-title">Field Service Engineer</div>
+          <div class="job-company">Halliburton Energy Services</div>
+          <div class="job-location">📍 Nigeria</div>
+          <ul class="job-bullets">
+            <li>Applied DFG and Wellsight Express drilling fluid simulation software for 7 offshore drilling projects.</li>
+            <li>Reduced turnaround time for new mud formulation development by 20%, saving $18K for Halliburton Nigeria.</li>
+          </ul>
+          <div class="expand-hint"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-header reveal">
+      <span class="section-number">03</span>
+      <h2>Projects</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card reveal">
+        <span class="project-icon">🗺️</span>
+        <div class="project-title">Geospatial Beverage Audit Sampler</div>
+        <p class="project-desc">Redesigned NielsenIQ retail audit sample selection using Python geospatial analysis to eliminate representation gaps across Sub-Saharan Africa.</p>
+        <div class="project-impact">💰 Retained $600K Coca-Cola subscription</div>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">GeoPandas</span>
+          <span class="tag">Folium</span>
+          <span class="tag">SQL</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <span class="project-icon">🔄</span>
+        <div class="project-title">E2E Market Refresh Pipeline</div>
+        <p class="project-desc">Built an end-to-end pipeline for projecting market data simulations in Python and migrating validated updates into production SQL databases.</p>
+        <div class="project-impact">💰 Served $4M client base, zero rollback</div>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">Pandas</span>
+          <span class="tag">SQL</span>
+          <span class="tag">ETL</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <span class="project-icon">⚡</span>
+        <div class="project-title">Regional Customization Automator</div>
+        <p class="project-desc">Python Pandas program automating regional data customization requests with configurable JSON rules per market, eliminating 4 days of manual work per request.</p>
+        <div class="project-impact">💰 90% TAT reduction · Won back $300K</div>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">Pandas</span>
+          <span class="tag">Automation</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <span class="project-icon">📈</span>
+        <div class="project-title">Polynomial Sales Trend Forecaster</div>
+        <p class="project-desc">Polynomial regression model using scikit-learn to reconstruct and project FMCG sales trends from a single year of data for Coca-Cola and Diageo.</p>
+        <div class="project-impact">💰 $1.5M project value</div>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">scikit-learn</span>
+          <span class="tag">Matplotlib</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <span class="project-icon">🔍</span>
+        <div class="project-title">Google Places Web Scraper — Lagos</div>
+        <p class="project-desc">Grid-based Google Places API scraper to discover and catalog all bakery/pastry shops across Lagos metro for a retail census deliverable.</p>
+        <div class="project-impact">💰 Contributed to $300K bid win (2019)</div>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">Google Places API</span>
+          <span class="tag">Pandas</span>
+          <span class="tag">Folium</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <span class="project-icon">📸</span>
+        <div class="project-title">AI Store Sizing & OCR System</div>
+        <p class="project-desc">AI-powered retail measurement system using OpenCV and EasyOCR to extract store dimensions and product data from basic Android smartphone images.</p>
+        <div class="project-impact">🚀 Transformed field data collection</div>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">OpenCV</span>
+          <span class="tag">EasyOCR</span>
+          <span class="tag">Flask</span>
+        </div>
+      </div>
+
+    </div>
+    <div style="text-align:center; margin-top:2.5rem;" class="reveal">
+      <a href="https://github.com/Katredandred" target="_blank" class="btn btn-primary">View All on GitHub →</a>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="section-header reveal">
+      <span class="section-number">04</span>
+      <h2>Education</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-card reveal">
+        <div class="edu-school">William & Mary</div>
+        <div class="edu-degree">MBA — Business Analytics, Finance & Consulting</div>
+        <div class="edu-date">Expected May 2027</div>
+        <p style="font-size:0.83rem; color:var(--muted);">Raymond A. Mason School of Business</p>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-school">Harvard Business School Online</div>
+        <div class="edu-degree">Credential of Readiness (CORe)</div>
+        <div class="edu-date">August 2025</div>
+        <div class="edu-honors">✦ Pass with Honors</div>
+        <p style="font-size:0.83rem; color:var(--muted); margin-top:0.5rem;">Business Analytics · Economics for Managers · Financial Accounting</p>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-school">University of Lagos</div>
+        <div class="edu-degree">B.Sc. Chemical Engineering</div>
+        <div class="edu-date">December 2012</div>
+        <div class="edu-honors">✦ First Class Honors</div>
+        <p style="font-size:0.83rem; color:var(--muted); margin-top:0.5rem;">ExxonMobil Mobil Undergraduate Scholarship, 2008–2012</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- AWARDS -->
+  <section id="awards">
+    <div class="section-header reveal">
+      <span class="section-number">05</span>
+      <h2>Awards & Recognition</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="awards-list">
+      <div class="award-item reveal">
+        <div class="award-icon">🥇</div>
+        <div class="award-text">
+          <strong>Gold Award for Excellence</strong>
+          <span>NielsenIQ · 2021</span>
+        </div>
+      </div>
+      <div class="award-item reveal">
+        <div class="award-icon">🥈</div>
+        <div class="award-text">
+          <strong>Silver Award for Outstanding Achievement</strong>
+          <span>NielsenIQ · 2021</span>
+        </div>
+      </div>
+      <div class="award-item reveal">
+        <div class="award-icon">⭐</div>
+        <div class="award-text">
+          <strong>13× Bravo Awards for NielsenIQ Values</strong>
+          <span>NielsenIQ · 2022–2023</span>
+        </div>
+      </div>
+      <div class="award-item reveal">
+        <div class="award-icon">🎓</div>
+        <div class="award-text">
+          <strong>Endowment for First Class Students</strong>
+          <span>University of Lagos · 2009–2012</span>
+        </div>
+      </div>
+      <div class="award-item reveal">
+        <div class="award-icon">🛢️</div>
+        <div class="award-text">
+          <strong>Mobil Undergraduate Scholarship</strong>
+          <span>ExxonMobil · 2008–2012</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <h2 class="reveal">Let's Work Together</h2>
+    <p class="reveal">
+      Open to roles in Data Science, Machine Learning, Business Analytics, and AI Product Development.
+      Let's build something meaningful.
+    </p>
+    <div class="contact-links reveal">
+      <a href="mailto:kelawal@wm.edu" class="contact-link">✉️ kelawal@wm.edu</a>
+      <a href="tel:+17579772759" class="contact-link">📞 (757) 977-2759</a>
+      <a href="https://linkedin.com/in/katelawal" target="_blank" class="contact-link">💼 LinkedIn</a>
+      <a href="https://github.com/Katredandred" target="_blank" class="contact-link">⌥ GitHub</a>
+    </div>
+    <p style="margin-top:3rem; font-size:0.75rem; color:rgba(250,248,243,0.3); font-family:'Fira Code',monospace;">
+      © 2025 Kate Lawal · Built with HTML/CSS/JS · Hosted on GitHub Pages
+    </p>
+  </section>
+
+  <script>
+    // ─── CURSOR ───
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+    document.querySelectorAll('a, button, .timeline-card, .project-card, .skill-pill').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+    });
+
+    // ─── SCROLL REVEAL ───
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ─── DOT NAV ───
+    const sections = ['hero','about','experience','projects','education','awards','contact'];
+    const dots = document.querySelectorAll('.dot-nav');
+
+    function scrollTo(id) {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && window.scrollY >= el.offsetTop - 200) current = id;
+      });
+      dots.forEach(d => {
+        d.classList.toggle('active', d.dataset.section === current);
+      });
+    });
+
+    // ─── EXPAND TIMELINE CARDS ───
+    function toggleCard(card) {
+      card.classList.toggle('expanded');
+    }
+
+    // ─── COUNTER ANIMATION ───
+    function animateCounters() {
+      document.querySelectorAll('[data-target]').forEach(el => {
+        const target = parseInt(el.dataset.target);
+        const prefix = el.dataset.prefix || '';
+        const suffix = el.dataset.suffix || '';
+        let current = 0;
+        const step = target / 40;
+        const timer = setInterval(() => {
+          current = Math.min(current + step, target);
+          el.textContent = prefix + Math.round(current) + suffix;
+          if (current >= target) clearInterval(timer);
+        }, 40);
+      });
+    }
+
+    // Trigger counters when stats bar comes into view
+    const statsObserver = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) { animateCounters(); statsObserver.disconnect(); }
+    }, { threshold: 0.5 });
+    statsObserver.observe(document.querySelector('.stats-bar'));
+  </script>
+</body>
+</html>
